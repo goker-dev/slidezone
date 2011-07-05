@@ -1,0 +1,201 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head>
+        <meta charset="UTF-8" />
+        <title>slidezone</title>
+        <meta name="description" content="slidezone customizable effects slider jQuery plug-in" />
+        <meta name="keywords" content="slidezone, customize, effects, slider, image slider" />
+        <link type="text/plain" rel="author" href="http://gokercebeci.com/humans.txt" />
+        <link rel="shortcut icon" href="http://gokercebeci.com/favicon.ico" type="image/x-icon" />
+        <style>
+            body { margin: 0; padding: 0; color:#333; font: normal 13px/1.264 sans-serif; }
+            #devcontainer { margin: 20px auto; padding: 0 10px; width: 940px; }
+            .codeblock {
+                margin: 5px 0;
+                padding:10px;
+                color: #ddd;
+                border: 2px solid #000;
+                background: #333;
+            }
+            .codeblock p{padding-top:10px; }
+            #area { float:left; width: 460px; }
+            .desc { float:right; width: 460px; }
+            .signature a { color:#555; text-decoration:none; }
+            .signature img { margin-right:5px; vertical-align: middle; }
+        </style>
+        <!-- jquery -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+    </head>
+    <body>
+        <div id="devcontainer">
+            <!-- development area -->
+
+            <!-- DESCRIPTION -->
+            <div class="desc">
+                <p><b>slidezone</b> is a slider with customizable effects, jQuery plug-in.</p>
+                <p>I developed it to use on my <a href="http://uygulama.net" title="uygulama">Uygulama</a> and <a href="http://kukimuki.net" title="kukimuki">Kukimuki</a> projects.</p>
+                <p>I've only tested it on Google Chrome (11.0.696.65), Chromium (11.0.696.71 (86024) Ubuntu 11.04), Mozilla Firefox (4.0.1), Opera (11.10 (2092)) and it works enough for me for now!</p>
+                <p>It is under MIT License.</p>
+                <p class="signature"><a href="http://gokercebeci.com/dev/" title="developer">
+                        <img src="http://geticon.org/of/gokercebeci.com" alt="developer" />
+                        goker.cebeci, the developer</a></p>
+                <p class="signature"><a href="https://github.com/gokercebeci/slidezone">
+                        <img src="http://geticon.org/of/github.com" alt="github" />
+                        download or fork it on github</a></p>
+                <p class="signature"><a href="http://plugins.jquery.com/project/slidezone">
+                        <img src="http://geticon.org/of/jquery.com" alt="jquery" />
+                        jquery plugin page</a></p>
+                <br/>
+                <h3>USAGE</h3>
+                <div class="codeblock">
+                    <code>
+                        &lt;div class="images"&gt;<br>
+                        &lt;a href="test.jpg" title="test"&gt;<br>
+                        &lt;img src="test.jpg" alt="test" /&gt;<br>
+                        &lt;/a&gt;<br>
+                        &lt;/div&gt;
+                        <p>&lt;script&gt;<br/>$('.images').slidezone(options);<br/>&lt;/script&gt;</p>
+                    </code>
+                </div>
+            </div>
+            <!-- /DESCRIPTION -->
+
+            <style>
+                .images {
+                    position: relative;
+                    width: 460px;
+                    height: 340px;
+                }
+                .images a {
+                    display:block;
+                    position: absolute;
+                    width: 100%;
+                }
+                .images img {
+                    width: 100%;
+                }
+                
+                .slidezone {
+                    position:relative;
+                }
+                .slidezone-nav {
+                    position:absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 20px;
+                    z-index: 100;
+                }
+                .slidezone-index {
+                    position:absolute;
+                    width: 100%;
+                    height: 100%;
+                    text-align: center;
+                }
+                .slidezone-index a {
+                    position: relative;
+                    display: inline-block;
+                    margin: 2px;
+                    width: 16px;
+                    height: 16px;
+                    cursor: pointer;
+                    background: url(slidezone-sprite.png) top center no-repeat;
+                }
+                .slidezone-index a.active, .slidezone-index a:hover {
+                    background-position: bottom center;
+                }
+                a.slidezone-next, a.slidezone-next:hover {
+                    background-position: center right;
+                }
+                a.slidezone-prev, a.slidezone-prev:hover {
+                    background-position: center left;
+                }
+                
+                #custom { height: 360px; }
+            </style>
+
+            <div id="area">
+                <h3>Default</h3>
+                <div id="default" class="images">
+                    <a href="test1.jpg" title="test1"><img src="test1.jpg" alt="test1"/></a>
+                    <a href="test2.jpg" title="test2"><img src="test2.jpg" alt="test2"/></a>
+                    <a href="test3.jpg" title="test3"><img src="test3.jpg" alt="test3"/></a>
+                    <a href="test4.jpg" title="test4"><img src="test4.jpg" alt="test4"/></a>
+                    <a href="test5.jpg" title="test5"><img src="test5.jpg" alt="test5"/></a>
+                </div>
+                <p>with simple fadeIn, fadeOut effect.</p>
+                <div class="clear"></div>
+                <h3>Custom</h3>
+                <div id="custom" class="images">
+                    <a href="test1.jpg" title="test1"><img src="test1.jpg" alt="test1"/></a>
+                    <a href="test2.jpg" title="test2"><img src="test2.jpg" alt="test2"/></a>
+                    <a href="test3.jpg" title="test3"><img src="test3.jpg" alt="test3"/></a>
+                    <a href="test4.jpg" title="test4"><img src="test4.jpg" alt="test4"/></a>
+                    <a href="test5.jpg" title="test5"><img src="test5.jpg" alt="test5"/></a>
+                </div> 
+                <div class="clear"></div>
+                <p>with custom pixelate effect.</p>
+            </div>
+
+            <script src="slidezone-min.js"></script>
+            <script>
+                $('#default').slidezone();
+                // CUSTOM EFFECT
+                var pixelate = function(slide, active, callback){
+                    var w = slide.width();
+                    var h = slide.height();
+                    var s = {'cols':Math.round(w/50),'rows':Math.round(h/50)};
+                    var src = active.find('img').attr('src');
+                    var boxWidth = Math.round(w/s.cols);
+                    var boxHeight = Math.round(h/s.rows);
+                    for(var rows = 0; rows < s.rows; rows++){
+                        for(var cols = 0; cols < s.cols; cols++){
+                            var rand = Math.random()*10 % 10;
+                            if(cols == s.cols-1){
+                                slide.append(
+                                $('<div class="mask">').css({ 
+                                    position:'absolute',
+                                    opacity:0,
+                                    left:(boxWidth*cols)+'px', 
+                                    top:(boxHeight*rows)+'px',
+                                    width:(w -(boxWidth*cols))+'px',
+                                    height:boxHeight+'px',
+                                    background: 'url("'+ src +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
+                                }).delay(100*rand).animate({
+                                    opacity:'1'
+                                },800)
+                            );
+                            } else {
+                                slide.append(
+                                $('<div class="mask">').css({ 
+                                    position:'absolute',
+                                    opacity:0,
+                                    left:(boxWidth*cols)+'px', 
+                                    top:(boxHeight*rows)+'px',
+                                    width:boxWidth+'px',
+                                    height:boxHeight+'px',
+                                    background: 'url("'+ src +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
+                                }).delay(100*rand).animate({
+                                    opacity:'1'
+                                },800)
+                            );
+                            }
+                        }
+                    }
+                };
+                // CUSTOM SLIDE DEFINATION
+                $('#custom').slidezone({
+                    delay		: 5000,
+                    slideOut    : function(slide, active, callback){ 
+                        $('#custom').find('.junk').remove();
+                        $('#custom').find('div.mask:visible').addClass('junk');
+                    },
+                    slideIn     : pixelate
+                });
+                
+            </script>
+
+            <!-- /development area -->
+        </div>
+    </body>
+</html> 
