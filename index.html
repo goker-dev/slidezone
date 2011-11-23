@@ -3,8 +3,8 @@
     <head>
         <meta charset="UTF-8" />
         <title>slidezone</title>
-        <meta name="description" content="slidezone customizable effects slider jQuery plug-in" />
-        <meta name="keywords" content="slidezone, customize, effects, slider, image slider" />
+        <meta name="description" content="slidezone is an image slider jQuery plug-in. It has customizable animations/effects." />
+        <meta name="keywords" content="slidezone, customize, effects, slider, image slider, jquery slide, jquery slider" />
         <link type="text/plain" rel="author" href="http://gokercebeci.com/humans.txt" />
         <link rel="shortcut icon" href="http://gokercebeci.com/favicon.ico" type="image/x-icon" />
         <style>
@@ -18,8 +18,8 @@
                 background: #333;
             }
             .codeblock p{padding-top:10px; }
-            #area { float:left; width: 460px; }
-            .desc { float:right; width: 460px; }
+            #area { float:left; width: 480px; }
+            .desc { float:right; width: 440px; }
             .signature a { color:#555; text-decoration:none; }
             .signature img { margin-right:5px; vertical-align: middle; }
         </style>
@@ -32,9 +32,21 @@
 
             <!-- DESCRIPTION -->
             <div class="desc">
-                <p><b>slidezone</b> is a slider with customizable effects, jQuery plug-in.</p>
-                <p>I developed it to use on my <a href="http://uygulama.net" title="uygulama">Uygulama</a> and <a href="http://kukimuki.net" title="kukimuki">Kukimuki</a> projects.</p>
-                <p>I've only tested it on Google Chrome (11.0.696.65), Chromium (11.0.696.71 (86024) Ubuntu 11.04), Mozilla Firefox (4.0.1), Opera (11.10 (2092)) and it works enough for me for now!</p>
+                <h1>SLIDEZONE</h1>
+                <hr>
+                <p><b>slidezone</b> is an image slider jQuery plug-in.</p>
+                <p>It has customizable animations/effects. You can change animations/effects with plug-in options easily.</p>
+                <p><b>slidezone</b> reads all dimension values from CSS and the plug-in's options 
+                    doesn't have any dimension values.</p>
+                <p>I developed it to use on my <a href="http://uygulama.net" title="uygulama">Uygulama</a> project's new version.</p>
+                <p>I've only tested it on</p>
+                <ul>
+                    <li><b>Chromium (14.0.835.202)</b>, </li>
+                    <li><b>Google Chrome (15.0.874.120)</b>, </li>
+                    <li><b>Mozilla Firefox (3.6.17)</b>, </li>
+                    <li><b>Opera (11.52)</b> </li>
+                </ul>
+                <p>and it works enough for me for now!</p>
                 <p>It is under MIT License.</p>
                 <p class="signature"><a href="http://gokercebeci.com/dev/" title="developer">
                         <img src="http://geticon.org/of/gokercebeci.com" alt="developer" />
@@ -49,74 +61,37 @@
                 <h3>USAGE</h3>
                 <div class="codeblock">
                     <code>
-                        &lt;div class="images"&gt;<br>
-                        &lt;a href="test.jpg" title="test"&gt;<br>
-                        &lt;img src="test.jpg" alt="test" /&gt;<br>
-                        &lt;/a&gt;<br>
-                        &lt;/div&gt;
-                        <p>&lt;script&gt;<br/>$('.images').slidezone(options);<br/>&lt;/script&gt;</p>
+                        &lt;div class="slidezone"&gt;<br/>
+                        &nbsp;&nbsp;&lt;a href="test.jpg" title="test"&gt;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="test.jpg" alt="test" /&gt;<br/>
+                        &nbsp;&nbsp;&lt;/a&gt;<br/>
+                        &lt;/div&gt;<br/>
+                        <br/>
+                        &lt;script src="slidezone.js"&gt&lt;/script&gt;<br/>
+                        &lt;link rel="stylesheet" href="slidezone.css" /&gt;<br/>
+                        &lt;script&gt;<br/>
+                        &nbsp;&nbsp;$('.slidezone').slidezone([options]);<br/>
+                        &lt;/script&gt;
                     </code>
+                </div>
+                <h3>OPTIONS</h3>
+                <div class="codeblock">
+                    <ul>
+                        <li><code><b>init</b> : Optional init function.</code></li>
+                        <li><code><b>start </b> : Optional start function</code></li>
+                        <li><code><b>finish </b> : Optional finish function.</code></li>
+                        <li><code><b>delay </b> : Optional delay time.</code></li>
+                        <li><code><b>slideIn </b> : Optional slideIn function.</code></li>
+                        <li><code><b>slideOut </b> : Optional slideOut function.</code></li>
+                        <li><code><b>menu </b> : Optional context menu's titles array.</code></li>
+                    </ul>
                 </div>
             </div>
             <!-- /DESCRIPTION -->
 
-            <style>
-                .images {
-                    position: relative;
-                    width: 460px;
-                    height: 340px;
-                }
-                .images a {
-                    display:block;
-                    position: absolute;
-                    width: 100%;
-                }
-                .images img {
-                    width: 100%;
-                }
-                
-                .slidezone {
-                    position:relative;
-                }
-                .slidezone-nav {
-                    position:absolute;
-                    bottom: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 20px;
-                    z-index: 100;
-                }
-                .slidezone-index {
-                    position:absolute;
-                    width: 100%;
-                    height: 100%;
-                    text-align: center;
-                }
-                .slidezone-index a {
-                    position: relative;
-                    display: inline-block;
-                    margin: 2px;
-                    width: 16px;
-                    height: 16px;
-                    cursor: pointer;
-                    background: url(slidezone-sprite.png) top center no-repeat;
-                }
-                .slidezone-index a.active, .slidezone-index a:hover {
-                    background-position: bottom center;
-                }
-                a.slidezone-next, a.slidezone-next:hover {
-                    background-position: center right;
-                }
-                a.slidezone-prev, a.slidezone-prev:hover {
-                    background-position: center left;
-                }
-                
-                #custom { height: 360px; }
-            </style>
-
             <div id="area">
-                <h3>Default</h3>
-                <div id="default" class="images">
+                <h3>DEFAULT</h3>
+                <div id="default" class="slidezone">
                     <a href="test1.jpg" title="test1"><img src="test1.jpg" alt="test1"/></a>
                     <a href="test2.jpg" title="test2"><img src="test2.jpg" alt="test2"/></a>
                     <a href="test3.jpg" title="test3"><img src="test3.jpg" alt="test3"/></a>
@@ -125,8 +100,8 @@
                 </div>
                 <p>with simple fadeIn, fadeOut effect.</p>
                 <div class="clear"></div>
-                <h3>Custom</h3>
-                <div id="custom" class="images">
+                <h3>CUSTOM</h3>
+                <div id="custom" class="slidezone">
                     <a href="test1.jpg" title="test1"><img src="test1.jpg" alt="test1"/></a>
                     <a href="test2.jpg" title="test2"><img src="test2.jpg" alt="test2"/></a>
                     <a href="test3.jpg" title="test3"><img src="test3.jpg" alt="test3"/></a>
@@ -137,60 +112,60 @@
                 <p>with custom pixelate effect.</p>
             </div>
 
-            <script src="slidezone-min.js"></script>
+            <script src="slidezone.js"></script>
+            <link rel="stylesheet" href="slidezone.css" />
             <script>
                 $('#default').slidezone();
+                
                 // CUSTOM EFFECT
-                var pixelate = function(slide, active, callback){
-                    var w = slide.width();
-                    var h = slide.height();
+                var pixelate = function(slidezone){
+                    var w = slidezone.width();
+                    var h = slidezone.height();
                     var s = {'cols':Math.round(w/50),'rows':Math.round(h/50)};
-                    var src = active.find('img').attr('src');
+                    var src = slidezone.current.find('img').attr('src');
                     var boxWidth = Math.round(w/s.cols);
                     var boxHeight = Math.round(h/s.rows);
                     for(var rows = 0; rows < s.rows; rows++){
                         for(var cols = 0; cols < s.cols; cols++){
                             var rand = Math.random()*10 % 10;
-                            if(cols == s.cols-1){
-                                slide.append(
-                                $('<div class="mask">').css({ 
-                                    position:'absolute',
-                                    opacity:0,
-                                    left:(boxWidth*cols)+'px', 
-                                    top:(boxHeight*rows)+'px',
-                                    width:(w -(boxWidth*cols))+'px',
-                                    height:boxHeight+'px',
-                                    background: 'url("'+ src +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
-                                }).delay(100*rand).animate({
-                                    opacity:'1'
-                                },800)
-                            );
-                            } else {
-                                slide.append(
-                                $('<div class="mask">').css({ 
-                                    position:'absolute',
-                                    opacity:0,
-                                    left:(boxWidth*cols)+'px', 
-                                    top:(boxHeight*rows)+'px',
-                                    width:boxWidth+'px',
-                                    height:boxHeight+'px',
-                                    background: 'url("'+ src +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
-                                }).delay(100*rand).animate({
-                                    opacity:'1'
-                                },800)
-                            );
-                            }
+                            slidezone.append(
+                            $('<a class="mask">').css({ 
+                                position:'absolute',
+                                opacity:0,
+                                left:(boxWidth*cols)+'px', 
+                                top:(boxHeight*rows)+'px',
+                                width: (cols == s.cols-1 ? (w -(boxWidth*cols)) : boxWidth ) +'px',
+                                height:boxHeight+'px',
+                                background: 'url("'+ src +'") no-repeat -'+ ((boxWidth + (cols * boxWidth)) - boxWidth) +'px -'+ ((boxHeight + (rows * boxHeight)) - boxHeight) +'px'
+                            }).delay(100*rand).animate({
+                                opacity:'1'
+                            },800,'slidezone')
+                            .attr('href',slidezone.current.attr('href')));
                         }
                     }
+                    slidezone.title.html('<p>'+slidezone.current.attr('title')+'</p>');
                 };
                 // CUSTOM SLIDE DEFINATION
                 $('#custom').slidezone({
-                    delay		: 5000,
-                    slideOut    : function(slide, active, callback){ 
+                    delay	: 5000,
+                    slideOut    : function(){ 
                         $('#custom').find('.junk').remove();
                         $('#custom').find('div.mask:visible').addClass('junk');
                     },
-                    slideIn     : pixelate
+                    slideIn     : pixelate,
+                    menu        : ['next >','< previous']
+                });
+                $('#custom').mouseover(function(){
+                    var t =  $(this).find('.slidezone-title');
+                    t.show().stop(1,1).animate({
+                        bottom: '-2px'
+                    },200,'slidezone');
+                });
+                $('#custom').mouseout(function(){
+                    var t =  $(this).find('.slidezone-title');
+                    t.delay(400).animate({
+                        bottom: -t.height()
+                    },200,'slidezone');
                 });
                 
             </script>

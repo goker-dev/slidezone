@@ -1,0 +1,109 @@
+/* SLIDEZONE
+==============================================================================*/
+.slidezone { 
+    position: relative; 
+    margin: 10px 0; 
+    height: 295px;
+    overflow: hidden;
+}
+.slidezone a {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.slidezone-container {
+    height: 270px;
+}
+.slidezone-nav {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    z-index: 100;
+}
+.slidezone-title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    text-align: right;
+    line-height: 20px;
+    z-index: 99;
+}
+.slidezone-title i {
+    padding: 0 0 0 12px;
+}
+.slidezone-index {
+    position: absolute;
+    padding-right: 10px;
+    height: 100%;
+}
+.slidezone-index a {
+    position: relative;
+    display: inline-block;
+    margin: 2px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    background: url(slidezone-sprite.png) top center no-repeat;
+    opacity: .6;
+}
+.slidezone-index a.active, .slidezone-index a:hover {
+    background-position: center bottom;
+    opacity: 1;
+}
+a.slidezone-next, a.slidezone-next:hover {
+    background-position: right center;
+}
+a.slidezone-prev, a.slidezone-prev:hover {
+    background-position: left center;
+}
+/* SLIDEZONE CONTEXTMENU
+------------------------------------------------------------------------------*/
+#contextmenu {
+    min-width: 160px;
+    font-size: smaller;
+    border: 1px solid #ddd;
+    background: #f7f7f7;
+    cursor: pointer;
+}
+#contextmenu a, #contextmenu a:visited {
+    display: block;
+    margin: 0 5px;
+    padding: 8px 10px;
+    color: #555;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #e3e3e3;
+    text-decoration: none;  
+}
+#contextmenu a:first-child {
+    border-top: 0;
+}
+#contextmenu a:last-child {
+    border-bottom: 0;
+}
+#contextmenu a:hover, #contextmenu a:focus {
+    color: #333;
+} 
+/* SLIDEZONE CUSTOM
+------------------------------------------------------------------------------*/
+#custom {
+    height: 270px;
+}
+#custom .slidezone-index {
+    right: 0;
+}
+#custom .slidezone-title {
+    display: none;
+    background: #000;
+    opacity: .6;
+    text-align: left;
+}
+#custom .slidezone-title p {
+    margin:0;
+    padding: 10px;
+    color: #fff;
+    font-weight: bold;
+}

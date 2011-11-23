@@ -1,107 +1,197 @@
 (function( $ ){
     // Methods
-    var m = {
-        init: function(slide,o){
-            clearTimeout(o.timer);
-            o.slides = slide.children();
-            o.active = o.slides.length-1;
-            o.start(o.slides);
+    var methods = {
+        init: function(element, options){
+            $this = this;
+            // Bind options
+            var slidezone =  $.extend(element, options);
+            slidezone.init(slidezone);
+            clearTimeout(slidezone.timer);
+            slidezone.slides = slidezone.find('a');
+            slidezone.active = slidezone.slides.length-1;
+            $this.start(slidezone);
             // NAV
-            var nav = $('<div class="slidezone-nav">').appendTo(slide);            
+            slidezone.nav = $('<div class="slidezone-nav">').appendTo(slidezone);   
+            // TITLE
+            slidezone.title = $('<div class="slidezone-title">').appendTo(slidezone);            
             // INDEX
-            var index = $('<div class="slidezone-index">').appendTo(nav);
+            slidezone.index = $('<div class="slidezone-index">').appendTo(slidezone.nav);
+            // CUSTOM EASING
+            $.easing.slidezone = function(x, t, b, c, d){
+                return c*((t=t/d-1)*t*t + 1) + b;
+            }
             // PREV
             $('<a class="slidezone-prev">')
             .click(function(){
-                m.prev(slide,o);
-            }).appendTo(index);
-            // SLIDES
-            for ( var i = 0; i <= o.active;  i++ ) {
+                $this.prev(slidezone);
+            }).appendTo(slidezone.index);
+            // SLIDE INDEX
+            for ( var i = 0; i <= slidezone.active;  i++ ) {
                 $('<a class="index'+i+'" data-id="'+i+'">')
                 .click(function(){
-                    clearTimeout(o.timer);
-                    o.slideOut(slide,$(o.slides[o.active]));
-                    o.active = $(this).data('id');
-                    o.slideIn(slide,$(o.slides[o.active]));
-                    slide.find('.active').removeClass('active');
-                    slide.find('.index'+o.active).addClass('active');
-                    o.timer = setTimeout(function () {
-                        m.next(slide,o);
-                    },o.delay);
-                }).appendTo(index);
+                    clearTimeout(slidezone.timer);
+                    // slide out current slide
+                    slidezone.current = $(slidezone.slides[slidezone.active]);
+                    slidezone.slideOut(slidezone);
+                    // slide in selected slide
+                    slidezone.active = $(this).data('id');
+                    slidezone.current = $(slidezone.slides[slidezone.active]);
+                    slidezone.slideIn(slidezone);
+                    $this.set(slidezone);
+                }).appendTo(slidezone.index);
             }
-            o.active = 0;
             // NEXT
             $('<a class="slidezone-next">')
             .click(function(){
-                m.next(slide,o);
-            }).appendTo(index);
+                $this.next(slidezone);
+            }).appendTo(slidezone.index);
             // KEY CONTROL
             $(document).keydown(function(e) {
                 if ( e.keyCode == 37 ) { 
-                    m.prev(slide,o);
+                    $this.prev(slidezone);
                 } else if ( e.keyCode == 39 ) { 
-                    m.next(slide,o);
+                    $this.next(slidezone);
                 }
             });
-            // GET FIRST
-            o.slideIn(slide,$(o.slides[o.active]));
-            slide.find('.active').removeClass('active');
-            slide.find('.index'+o.active).addClass('active');
-            o.timer = setTimeout(function () {
-                m.next(slide,o);
-            },o.delay);
+            // slide in first slide
+            slidezone.active = 0;
+            slidezone.current = $(slidezone.slides[slidezone.active]);
+            slidezone.slideIn(slidezone);
+            $this.set(slidezone);
+            // context menu
+            $this.contextmenu(slidezone);
             return false;
         },
-        next: function(slide,o,c){
-            clearTimeout(o.timer);
-            o.slideOut(slide,$(o.slides[o.active]),c);
-            o.active = (o.active+1) % o.slides.length;
-            o.slideIn(slide,$(o.slides[o.active]),c);
-            slide.find('.active').removeClass('active');
-            slide.find('.index'+o.active).addClass('active');
-            o.timer = setTimeout(function () {
-                m.next(slide,o);
-            },o.delay);
+        contextmenu: function(slidezone){
+            $this = this;
+            slidezone.bind({
+                'contextmenu':function(e){
+                    e.preventDefault();
+                    $('#contextmenu').remove();
+                    var c = $('<div id="contextmenu">')
+                    c.css({
+                        position : 'absolute',
+                        display  : 'none',
+                        'z-index': '10000'
+                    })   
+                    .appendTo($('body'));
+                    $('<a>').click(function(){
+                        $this.next(slidezone);
+                    })
+                    .html(slidezone.menu[0]).appendTo(c);
+                    $('<a>').click(function(){
+                        $this.prev(slidezone);
+                    })
+                    .html(slidezone.menu[1]).appendTo(c);
+                    $('<a href="http://gokercebeci.com/dev/slidezone">')
+                    .html('slidezone v1.10').appendTo(c);
+                    // Set position
+                    var ww = $(document).width();
+                    var wh = $(document).height();
+                    var w = c.outerWidth(1);
+                    var h = c.outerHeight(1);
+                    var x = e.pageX > (ww - w) ? ww : e.pageX;
+                    var y = e.pageY > (wh - h) ? wh : e.pageY;
+                    c.css({
+                        display : 'block',
+                        top     : y,
+                        left    : x
+                    });
+                }
+            });
+            $(document)
+            .click(function(){
+                $('#contextmenu').remove();
+            })
+            .keydown(function(e) {
+                if ( e.keyCode == 27 ){
+                    $('#contextmenu').remove();
+                }
+            })
+            .scroll(function(){
+                $('#contextmenu').remove();
+            })
+            .resize(function(){
+                $('#contextmenu').remove();
+            });
         },
-        prev: function(slide,o,c){
-            clearTimeout(o.timer);
-            o.slideOut(slide,$(o.slides[o.active]),c);
-            o.active = ((o.active-1) < 0 ? o.slides.length+(o.active-1) : (o.active-1)) % o.slides.length;
-            o.slideIn(slide,$(o.slides[o.active]),c);
-            slide.find('.active').removeClass('active');
-            slide.find('.index'+o.active).addClass('active');
-            o.timer = setTimeout(function () {
-                m.next(slide,o);
-            },o.delay);
+        set: function(slidezone){
+            $this = this;
+            // clear
+            slidezone.find('.active').removeClass('active');
+            // set index
+            slidezone.find('.index'+slidezone.active).addClass('active');
+            // set timer fot next slide
+            slidezone.timer = setTimeout(function () {
+                $this.next(slidezone);
+            },slidezone.delay);            
         },
-        start: function(slides){
-            slides.css({
+        next: function(slidezone){
+            $this = this;
+            clearTimeout(slidezone.timer);
+            // slide out current slide
+            slidezone.current = $(slidezone.slides[slidezone.active]);
+            slidezone.slideOut(slidezone);
+            // slide in next slide
+            slidezone.active = (slidezone.active+1) % slidezone.slides.length;
+            slidezone.current = $(slidezone.slides[slidezone.active]);           
+            slidezone.slideIn(slidezone);
+            $this.set(slidezone);
+        },
+        prev: function(slidezone){
+            $this = this;
+            clearTimeout(slidezone.timer);
+            // slide out current slide
+            slidezone.current = $(slidezone.slides[slidezone.active]);
+            slidezone.slideOut(slidezone);
+            // slide in previous slide
+            slidezone.active = ((slidezone.active-1) < 0 
+                ? slidezone.slides.length+(slidezone.active-1)
+                : (slidezone.active-1)) % slidezone.slides.length;
+            slidezone.current = $(slidezone.slides[slidezone.active]);          
+            slidezone.slideIn(slidezone);
+            $this.set(slidezone);
+        },
+        start: function(slidezone){
+            slidezone.start(slidezone);
+            slidezone.slides.css({
                 opacity:'0'
             });
         },  
-        slideIn: function(slide,active){
-            active.animate({
+        finish: function(slidezone){
+            slidezone.finish(slidezone);
+        },  
+        error: function(slidezone){
+            slidezone.error(slidezone);
+        },  
+        slideIn: function(slidezone){
+            slidezone.current.animate({
                 opacity:'1'
-            }, 600);
+            }, 600,'slidezone');
+            //title
+            slidezone.title.html('<i>'+slidezone.current.attr('title')+'</i>');
         },     
-        slideOut: function(slide,active){
-            active.animate({
+        slideOut: function(slidezone){
+            slidezone.current.animate({
                 opacity:'0'
-            }, 1200);
+            },'slidezone');
+            //title
+            slidezone.title.html('<i>'+slidezone.current.attr('title')+'</i>');
         }
     };
-    $.fn.slidezone = function(o) {
-        // Options
-        o = $.extend({
-            delay     : 3000,
-            start     : m.start,
-            slideIn   : m.slideIn,
-            slideOut  : m.slideOut,
-            slides    : [],
-            timer     : null,
-            active    : 0
-        }, o);
-        return m.init($(this),o);
+    $.fn.slidezone = function(options) {
+        options = $.extend({
+            init    : function(){},
+            start   : function(){},
+            finish  : function(){},
+            error   : function(){},
+            delay   : 3000,
+            slideIn : methods.slideIn,
+            slideOut: methods.slideOut,
+            menu    : ['next','previous']
+        }, options);
+        this.each(function(){
+            methods.init($(this), options);
+        });
     };
-})( jQuery );
+})(jQuery);
