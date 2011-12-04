@@ -1,6 +1,6 @@
-slidezone is an image slider jQuery plug-in.
-It has customizable animations/effects. You can change animations/effects with plug-in options easily.
-slidezone reads all dimension values from CSS and the plug-in's options doesn't have any dimension values.
+slidezone is an image slider jQuery plugin.
+It has customizable animations/effects. You can change animations/effects with plugin options easily.
+slidezone reads all dimension values from CSS and the plugin's options doesn't have any dimension values.
 
 I developed it to use on my Uygulama project's new version.
 
@@ -9,6 +9,7 @@ I've only tested it on
   * Google Chrome (15.0.874.120), 
   * Mozilla Firefox (3.6.17), 
   * Opera (11.52) 
+  * Internet Explorer (8.0.6001)
 and it works enough for me for now!
 
 It is under MIT License.

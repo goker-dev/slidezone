@@ -1,3 +1,4 @@
+/* slidezone 1.1.1 | MIT */
 (function( $ ){
     // Methods
     var methods = {
@@ -11,23 +12,23 @@
             slidezone.active = slidezone.slides.length-1;
             $this.start(slidezone);
             // NAV
-            slidezone.nav = $('<div class="slidezone-nav">').appendTo(slidezone);   
+            slidezone.nav = $('<div>',{'class':'slidezone-nav'}).appendTo(slidezone);   
             // TITLE
-            slidezone.title = $('<div class="slidezone-title">').appendTo(slidezone);            
+            slidezone.title = $('<div>',{'class':'slidezone-title'}).appendTo(slidezone);            
             // INDEX
-            slidezone.index = $('<div class="slidezone-index">').appendTo(slidezone.nav);
+            slidezone.index = $('<div>',{'class':'slidezone-index'}).appendTo(slidezone.nav);
             // CUSTOM EASING
             $.easing.slidezone = function(x, t, b, c, d){
                 return c*((t=t/d-1)*t*t + 1) + b;
             }
             // PREV
-            $('<a class="slidezone-prev">')
+            $('<a>',{'class':'slidezone-prev'})
             .click(function(){
                 $this.prev(slidezone);
             }).appendTo(slidezone.index);
             // SLIDE INDEX
             for ( var i = 0; i <= slidezone.active;  i++ ) {
-                $('<a class="index'+i+'" data-id="'+i+'">')
+                $('<a>',{'class':'index'+i,'data-id':i})
                 .click(function(){
                     clearTimeout(slidezone.timer);
                     // slide out current slide
@@ -41,7 +42,7 @@
                 }).appendTo(slidezone.index);
             }
             // NEXT
-            $('<a class="slidezone-next">')
+            $('<a>',{'class':'slidezone-next'})
             .click(function(){
                 $this.next(slidezone);
             }).appendTo(slidezone.index);
@@ -69,7 +70,7 @@
                     e.preventDefault();
                     $('#contextmenu').remove();
                     var c = $('<div id="contextmenu">')
-                    c.css({
+                    .css({
                         position : 'absolute',
                         display  : 'none',
                         'z-index': '10000'
@@ -83,8 +84,8 @@
                         $this.prev(slidezone);
                     })
                     .html(slidezone.menu[1]).appendTo(c);
-                    $('<a href="http://gokercebeci.com/dev/slidezone">')
-                    .html('slidezone v1.10').appendTo(c);
+                    $('<a>',{'href':'http://gokercebeci.com/dev/slidezone'})
+                    .html('slidezone v1.1.1').appendTo(c);
                     // Set position
                     var ww = $(document).width();
                     var wh = $(document).height();
@@ -119,7 +120,7 @@
             $this = this;
             // clear
             slidezone.find('.active').removeClass('active');
-            // set index
+            // set indexslidezone.activez
             slidezone.find('.index'+slidezone.active).addClass('active');
             // set timer fot next slide
             slidezone.timer = setTimeout(function () {

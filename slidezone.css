@@ -94,6 +94,7 @@ a.slidezone-prev, a.slidezone-prev:hover {
 }
 #custom .slidezone-index {
     right: 0;
+    background: transparent;
 }
 #custom .slidezone-title {
     display: none;
